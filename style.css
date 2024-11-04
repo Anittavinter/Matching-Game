@@ -1,0 +1,34 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin-top: 20px;
+}
+
+p {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+/* Styling for the smiley face images */
+img {
+    position: absolute;
+}
+
+/* Styling for the left and right side divs */
+div {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+}
+
+/* Styling specific to the right side div */
+#rightSide {
+    left: 500px; /* Positions it to the right of the leftSide div */
+    border-left: 1px solid black; /* Adds the border to separate the sides */
+}

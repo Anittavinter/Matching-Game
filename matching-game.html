@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matching Game</title>
+    <style>
+        img { position: absolute; }
+        div { position: absolute; width: 500px; height: 500px; }
+        #rightSide { left: 500px; border-left: 1px solid; }
+    </style>
+</head>
+<body>
+    <h1>Matching Game</h1>
+    <p>Click on the extra smiling face on the left.</p>
+    <div id="leftSide"></div>
+    <div id="rightSide"></div>
+
+    <script>
+        // Initial number of faces on the left side
+        let numberOfFaces = 5;
+        const theLeftSide = document.getElementById('leftSide');
+        const theRightSide = document.getElementById('rightSide');
+
+        // Function to generate faces on the left side and clone to the right
+        function generateFaces() {
+            // Clear previous faces on both sides before generating new ones
+            while (theLeftSide.firstChild) theLeftSide.removeChild(theLeftSide.firstChild);
+            while (theRightSide.firstChild) theRightSide.removeChild(theRightSide.firstChild);
+
+            // Generate faces on the left side
+            for (let i = 0; i < numberOfFaces; i++) {
+                let face = document.createElement('img');
+                face.src = 'images/smile.png';
+                face.style.top = Math.floor(Math.random() * 400) + 'px';
+                face.style.left = Math.floor(Math.random() * 400) + 'px';
+                theLeftSide.appendChild(face);
+            }
+
+            // Clone left side to right side but remove the last child to make it the "extra face"
+            const leftSideImages = theLeftSide.cloneNode(true);
+            leftSideImages.removeChild(leftSideImages.lastChild);
+            theRightSide.appendChild(leftSideImages);
+
+            // Event listeners for gameplay
+            theLeftSide.lastChild.addEventListener('click', nextLevel);
+            document.body.addEventListener('click', gameOver);
+        }
+
+        // Function to proceed to the next level
+        function nextLevel(event) {
+            event.stopPropagation();
+            numberOfFaces += 5;  // Increase number of faces by 5 for each level
+            generateFaces();     // Generate a new set of faces
+        }
+
+        // Function to handle game over when clicking outside the extra face
+        function gameOver() {
+            alert('Game Over!');
+            document.body.removeEventListener('click', gameOver);
+            theLeftSide.lastChild.removeEventListener('click', nextLevel);
+        }
+
+        // Start the game when the page loads
+        window.addEventListener('load', generateFaces);
+    </script>
+</body>
+</html>
